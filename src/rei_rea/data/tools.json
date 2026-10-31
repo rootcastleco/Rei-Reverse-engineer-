@@ -1,0 +1,2033 @@
+{
+  "schema_version": 1,
+  "tools": [
+    {
+      "id": "rea-upstream",
+      "name": "REA (morluto)",
+      "category": "framework",
+      "executables": [
+        "rea"
+      ],
+      "tags": [
+        "all",
+        "agent",
+        "workflow"
+      ],
+      "homepage": "https://github.com/morluto/rea",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "category": "native",
+      "executables": [
+        "analyzeHeadless"
+      ],
+      "tags": [
+        "native",
+        "firmware",
+        "decompile"
+      ],
+      "homepage": "https://ghidra-sre.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ida",
+      "name": "IDA / Hex-Rays",
+      "category": "native",
+      "executables": [
+        "ida",
+        "idat",
+        "ida64"
+      ],
+      "tags": [
+        "native",
+        "decompile"
+      ],
+      "homepage": "https://hex-rays.com/ida-pro/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "hopper",
+      "name": "Hopper Disassembler",
+      "category": "native",
+      "executables": [
+        "hopper"
+      ],
+      "tags": [
+        "native",
+        "decompile"
+      ],
+      "homepage": "https://www.hopperapp.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "binary-ninja",
+      "name": "Binary Ninja",
+      "category": "native",
+      "executables": [
+        "binaryninja"
+      ],
+      "tags": [
+        "native",
+        "decompile"
+      ],
+      "homepage": "https://binary.ninja/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "rizin",
+      "name": "Rizin",
+      "category": "native",
+      "executables": [
+        "rizin",
+        "rz-bin"
+      ],
+      "tags": [
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://rizin.re/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "radare2",
+      "name": "radare2",
+      "category": "native",
+      "executables": [
+        "r2",
+        "rabin2"
+      ],
+      "tags": [
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://rada.re/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "cutter",
+      "name": "Cutter",
+      "category": "native",
+      "executables": [
+        "cutter"
+      ],
+      "tags": [
+        "native"
+      ],
+      "homepage": "https://cutter.re/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "angr",
+      "name": "angr",
+      "category": "symbolic",
+      "executables": [
+        "angr"
+      ],
+      "tags": [
+        "native",
+        "symbolic"
+      ],
+      "homepage": "https://angr.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "capstone",
+      "name": "Capstone",
+      "category": "native",
+      "executables": [
+        "cstool"
+      ],
+      "tags": [
+        "native",
+        "disassemble"
+      ],
+      "homepage": "https://www.capstone-engine.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "keystone",
+      "name": "Keystone",
+      "category": "native",
+      "executables": [
+        "kstool"
+      ],
+      "tags": [
+        "native",
+        "assemble"
+      ],
+      "homepage": "https://www.keystone-engine.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "unicorn",
+      "name": "Unicorn",
+      "category": "emulation",
+      "executables": [
+        "unicorn"
+      ],
+      "tags": [
+        "native",
+        "emulation"
+      ],
+      "homepage": "https://www.unicorn-engine.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "qiling",
+      "name": "Qiling",
+      "category": "emulation",
+      "executables": [
+        "qiling"
+      ],
+      "tags": [
+        "native",
+        "firmware",
+        "emulation"
+      ],
+      "homepage": "https://qiling.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "triton",
+      "name": "Triton",
+      "category": "symbolic",
+      "executables": [
+        "triton"
+      ],
+      "tags": [
+        "native",
+        "symbolic"
+      ],
+      "homepage": "https://triton-library.github.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "miasm",
+      "name": "Miasm",
+      "category": "symbolic",
+      "executables": [
+        "miasm"
+      ],
+      "tags": [
+        "native",
+        "symbolic"
+      ],
+      "homepage": "https://github.com/cea-sec/miasm",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "manticore",
+      "name": "Manticore",
+      "category": "symbolic",
+      "executables": [
+        "manticore"
+      ],
+      "tags": [
+        "native",
+        "symbolic"
+      ],
+      "homepage": "https://github.com/trailofbits/manticore",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "gdb",
+      "name": "GNU Debugger",
+      "category": "debug",
+      "executables": [
+        "gdb"
+      ],
+      "tags": [
+        "native",
+        "runtime"
+      ],
+      "homepage": "https://sourceware.org/gdb/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "lldb",
+      "name": "LLDB",
+      "category": "debug",
+      "executables": [
+        "lldb"
+      ],
+      "tags": [
+        "native",
+        "apple",
+        "runtime"
+      ],
+      "homepage": "https://lldb.llvm.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "x64dbg",
+      "name": "x64dbg",
+      "category": "debug",
+      "executables": [
+        "x64dbg",
+        "x32dbg"
+      ],
+      "tags": [
+        "native",
+        "windows",
+        "runtime"
+      ],
+      "homepage": "https://x64dbg.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "windbg",
+      "name": "WinDbg",
+      "category": "debug",
+      "executables": [
+        "windbg",
+        "WinDbgX"
+      ],
+      "tags": [
+        "native",
+        "windows",
+        "runtime"
+      ],
+      "homepage": "https://learn.microsoft.com/windows-hardware/drivers/debugger/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "rr",
+      "name": "rr record and replay",
+      "category": "debug",
+      "executables": [
+        "rr"
+      ],
+      "tags": [
+        "native",
+        "linux",
+        "runtime"
+      ],
+      "homepage": "https://rr-project.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "strace",
+      "name": "strace",
+      "category": "runtime",
+      "executables": [
+        "strace"
+      ],
+      "tags": [
+        "native",
+        "linux",
+        "runtime"
+      ],
+      "homepage": "https://strace.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ltrace",
+      "name": "ltrace",
+      "category": "runtime",
+      "executables": [
+        "ltrace"
+      ],
+      "tags": [
+        "native",
+        "linux",
+        "runtime"
+      ],
+      "homepage": "https://ltrace.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "frida",
+      "name": "Frida",
+      "category": "runtime",
+      "executables": [
+        "frida",
+        "frida-trace"
+      ],
+      "tags": [
+        "native",
+        "android",
+        "apple",
+        "runtime"
+      ],
+      "homepage": "https://frida.re/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "frida-ps",
+      "name": "Frida Process Tool",
+      "category": "runtime",
+      "executables": [
+        "frida-ps"
+      ],
+      "tags": [
+        "native",
+        "android",
+        "apple",
+        "runtime"
+      ],
+      "homepage": "https://frida.re/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "bpftrace",
+      "name": "bpftrace",
+      "category": "runtime",
+      "executables": [
+        "bpftrace"
+      ],
+      "tags": [
+        "native",
+        "linux",
+        "runtime"
+      ],
+      "homepage": "https://bpftrace.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "perf",
+      "name": "Linux perf",
+      "category": "runtime",
+      "executables": [
+        "perf"
+      ],
+      "tags": [
+        "native",
+        "linux",
+        "runtime"
+      ],
+      "homepage": "https://perf.wiki.kernel.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "valgrind",
+      "name": "Valgrind",
+      "category": "runtime",
+      "executables": [
+        "valgrind"
+      ],
+      "tags": [
+        "native",
+        "linux",
+        "runtime"
+      ],
+      "homepage": "https://valgrind.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "qemu",
+      "name": "QEMU",
+      "category": "emulation",
+      "executables": [
+        "qemu-system-x86_64",
+        "qemu-aarch64"
+      ],
+      "tags": [
+        "firmware",
+        "native",
+        "emulation"
+      ],
+      "homepage": "https://www.qemu.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "readelf",
+      "name": "GNU readelf",
+      "category": "binary-utilities",
+      "executables": [
+        "readelf"
+      ],
+      "tags": [
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://sourceware.org/binutils/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "objdump",
+      "name": "GNU objdump",
+      "category": "binary-utilities",
+      "executables": [
+        "objdump"
+      ],
+      "tags": [
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://sourceware.org/binutils/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "llvm-objdump",
+      "name": "LLVM objdump",
+      "category": "binary-utilities",
+      "executables": [
+        "llvm-objdump"
+      ],
+      "tags": [
+        "native",
+        "firmware",
+        "apple"
+      ],
+      "homepage": "https://llvm.org/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "llvm-readobj",
+      "name": "LLVM readobj",
+      "category": "binary-utilities",
+      "executables": [
+        "llvm-readobj"
+      ],
+      "tags": [
+        "native",
+        "firmware",
+        "apple"
+      ],
+      "homepage": "https://llvm.org/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "nm",
+      "name": "GNU nm",
+      "category": "binary-utilities",
+      "executables": [
+        "nm"
+      ],
+      "tags": [
+        "native"
+      ],
+      "homepage": "https://sourceware.org/binutils/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "objcopy",
+      "name": "GNU objcopy",
+      "category": "binary-utilities",
+      "executables": [
+        "objcopy"
+      ],
+      "tags": [
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://sourceware.org/binutils/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "strings",
+      "name": "GNU strings",
+      "category": "binary-utilities",
+      "executables": [
+        "strings"
+      ],
+      "tags": [
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://sourceware.org/binutils/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "file",
+      "name": "file(1)",
+      "category": "binary-utilities",
+      "executables": [
+        "file"
+      ],
+      "tags": [
+        "all",
+        "native",
+        "firmware"
+      ],
+      "homepage": "https://www.darwinsys.com/file/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "xxd",
+      "name": "xxd",
+      "category": "binary-utilities",
+      "executables": [
+        "xxd"
+      ],
+      "tags": [
+        "all"
+      ],
+      "homepage": "https://www.vim.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "hexdump",
+      "name": "hexdump",
+      "category": "binary-utilities",
+      "executables": [
+        "hexdump"
+      ],
+      "tags": [
+        "all"
+      ],
+      "homepage": "https://man7.org/linux/man-pages/man1/hexdump.1.html",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "hexyl",
+      "name": "hexyl",
+      "category": "binary-utilities",
+      "executables": [
+        "hexyl"
+      ],
+      "tags": [
+        "all"
+      ],
+      "homepage": "https://github.com/sharkdp/hexyl",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "imhex",
+      "name": "ImHex",
+      "category": "binary-utilities",
+      "executables": [
+        "imhex"
+      ],
+      "tags": [
+        "all",
+        "firmware"
+      ],
+      "homepage": "https://imhex.werwolv.net/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "010-editor",
+      "name": "010 Editor",
+      "category": "binary-utilities",
+      "executables": [
+        "010editor"
+      ],
+      "tags": [
+        "all",
+        "firmware"
+      ],
+      "homepage": "https://www.sweetscape.com/010editor/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "kaitai",
+      "name": "Kaitai Struct Compiler",
+      "category": "binary-utilities",
+      "executables": [
+        "ksc"
+      ],
+      "tags": [
+        "all",
+        "formats"
+      ],
+      "homepage": "https://kaitai.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "detect-it-easy",
+      "name": "Detect It Easy",
+      "category": "binary-utilities",
+      "executables": [
+        "die"
+      ],
+      "tags": [
+        "native",
+        "windows"
+      ],
+      "homepage": "https://github.com/horsicq/Detect-It-Easy",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "pe-bear",
+      "name": "PE-bear",
+      "category": "binary-utilities",
+      "executables": [
+        "PE-bear"
+      ],
+      "tags": [
+        "native",
+        "windows"
+      ],
+      "homepage": "https://github.com/hasherezade/pe-bear",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "pestudio",
+      "name": "pestudio",
+      "category": "binary-utilities",
+      "executables": [
+        "pestudio"
+      ],
+      "tags": [
+        "native",
+        "windows"
+      ],
+      "homepage": "https://www.winitor.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "checksec",
+      "name": "checksec",
+      "category": "binary-utilities",
+      "executables": [
+        "checksec"
+      ],
+      "tags": [
+        "native",
+        "security"
+      ],
+      "homepage": "https://github.com/slimm609/checksec",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "lief",
+      "name": "LIEF",
+      "category": "binary-utilities",
+      "executables": [
+        "lief"
+      ],
+      "tags": [
+        "native",
+        "formats"
+      ],
+      "homepage": "https://lief.re/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "pefile",
+      "name": "pefile",
+      "category": "binary-utilities",
+      "executables": [
+        "pefile"
+      ],
+      "tags": [
+        "native",
+        "windows"
+      ],
+      "homepage": "https://github.com/erocarrera/pefile",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "exiftool",
+      "name": "ExifTool",
+      "category": "binary-utilities",
+      "executables": [
+        "exiftool"
+      ],
+      "tags": [
+        "all",
+        "metadata"
+      ],
+      "homepage": "https://exiftool.org/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "trid",
+      "name": "TrID",
+      "category": "binary-utilities",
+      "executables": [
+        "trid"
+      ],
+      "tags": [
+        "all",
+        "formats"
+      ],
+      "homepage": "https://mark0.net/soft-trid-e.html",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "hashdeep",
+      "name": "hashdeep",
+      "category": "forensics",
+      "executables": [
+        "hashdeep"
+      ],
+      "tags": [
+        "all",
+        "evidence"
+      ],
+      "homepage": "https://github.com/jessek/hashdeep",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "yara",
+      "name": "YARA",
+      "category": "forensics",
+      "executables": [
+        "yara"
+      ],
+      "tags": [
+        "all",
+        "malware"
+      ],
+      "homepage": "https://virustotal.github.io/yara-x/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "yara-x",
+      "name": "YARA-X",
+      "category": "forensics",
+      "executables": [
+        "yr"
+      ],
+      "tags": [
+        "all",
+        "malware"
+      ],
+      "homepage": "https://virustotal.github.io/yara-x/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "capa",
+      "name": "capa",
+      "category": "forensics",
+      "executables": [
+        "capa"
+      ],
+      "tags": [
+        "native",
+        "malware"
+      ],
+      "homepage": "https://github.com/mandiant/capa",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "floss",
+      "name": "FLOSS",
+      "category": "forensics",
+      "executables": [
+        "floss"
+      ],
+      "tags": [
+        "native",
+        "malware"
+      ],
+      "homepage": "https://github.com/mandiant/flare-floss",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "volatility3",
+      "name": "Volatility 3",
+      "category": "forensics",
+      "executables": [
+        "vol"
+      ],
+      "tags": [
+        "memory",
+        "forensics"
+      ],
+      "homepage": "https://github.com/volatilityfoundation/volatility3",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "rekall",
+      "name": "Rekall",
+      "category": "forensics",
+      "executables": [
+        "rekall"
+      ],
+      "tags": [
+        "memory",
+        "forensics"
+      ],
+      "homepage": "https://github.com/google/rekall",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "bulk-extractor",
+      "name": "bulk_extractor",
+      "category": "forensics",
+      "executables": [
+        "bulk_extractor"
+      ],
+      "tags": [
+        "all",
+        "forensics"
+      ],
+      "homepage": "https://github.com/simsong/bulk_extractor",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "foremost",
+      "name": "Foremost",
+      "category": "forensics",
+      "executables": [
+        "foremost"
+      ],
+      "tags": [
+        "all",
+        "forensics"
+      ],
+      "homepage": "https://foremost.sourceforge.net/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "binwalk",
+      "name": "Binwalk",
+      "category": "firmware",
+      "executables": [
+        "binwalk"
+      ],
+      "tags": [
+        "firmware",
+        "formats"
+      ],
+      "homepage": "https://github.com/ReFirmLabs/binwalk",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ubi-reader",
+      "name": "ubi_reader",
+      "category": "firmware",
+      "executables": [
+        "ubireader_display_info"
+      ],
+      "tags": [
+        "firmware"
+      ],
+      "homepage": "https://github.com/onekey-sec/ubi_reader",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "jefferson",
+      "name": "Jefferson",
+      "category": "firmware",
+      "executables": [
+        "jefferson"
+      ],
+      "tags": [
+        "firmware"
+      ],
+      "homepage": "https://github.com/sviehb/jefferson",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "uefitool",
+      "name": "UEFITool",
+      "category": "firmware",
+      "executables": [
+        "UEFITool"
+      ],
+      "tags": [
+        "firmware",
+        "uefi"
+      ],
+      "homepage": "https://github.com/LongSoft/UEFITool",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "uefi-firmware-parser",
+      "name": "UEFI Firmware Parser",
+      "category": "firmware",
+      "executables": [
+        "uefi-firmware-parser"
+      ],
+      "tags": [
+        "firmware",
+        "uefi"
+      ],
+      "homepage": "https://github.com/theopolis/uefi-firmware-parser",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "chipsec",
+      "name": "CHIPSEC",
+      "category": "firmware",
+      "executables": [
+        "chipsec_main"
+      ],
+      "tags": [
+        "firmware",
+        "uefi"
+      ],
+      "homepage": "https://github.com/chipsec/chipsec",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "flashrom",
+      "name": "flashrom",
+      "category": "firmware",
+      "executables": [
+        "flashrom"
+      ],
+      "tags": [
+        "firmware",
+        "hardware"
+      ],
+      "homepage": "https://flashrom.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "dtc",
+      "name": "Device Tree Compiler",
+      "category": "firmware",
+      "executables": [
+        "dtc"
+      ],
+      "tags": [
+        "firmware",
+        "linux"
+      ],
+      "homepage": "https://www.devicetree.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "squashfs-tools",
+      "name": "SquashFS tools",
+      "category": "firmware",
+      "executables": [
+        "unsquashfs",
+        "mksquashfs"
+      ],
+      "tags": [
+        "firmware",
+        "filesystem"
+      ],
+      "homepage": "https://github.com/plougher/squashfs-tools",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "simg2img",
+      "name": "simg2img",
+      "category": "firmware",
+      "executables": [
+        "simg2img"
+      ],
+      "tags": [
+        "firmware",
+        "android"
+      ],
+      "homepage": "https://android.googlesource.com/platform/system/core/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "android-adb",
+      "name": "ADB",
+      "category": "android",
+      "executables": [
+        "adb"
+      ],
+      "tags": [
+        "android",
+        "runtime"
+      ],
+      "homepage": "https://developer.android.com/tools/adb",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "android-aapt2",
+      "name": "AAPT2",
+      "category": "android",
+      "executables": [
+        "aapt2"
+      ],
+      "tags": [
+        "android",
+        "static"
+      ],
+      "homepage": "https://developer.android.com/tools/aapt2",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "android-apkanalyzer",
+      "name": "APK Analyzer",
+      "category": "android",
+      "executables": [
+        "apkanalyzer"
+      ],
+      "tags": [
+        "android",
+        "static"
+      ],
+      "homepage": "https://developer.android.com/studio/command-line/apkanalyzer",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "android-apksigner",
+      "name": "apksigner",
+      "category": "android",
+      "executables": [
+        "apksigner"
+      ],
+      "tags": [
+        "android",
+        "static"
+      ],
+      "homepage": "https://developer.android.com/tools/apksigner",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "jadx",
+      "name": "JADX",
+      "category": "android",
+      "executables": [
+        "jadx",
+        "jadx-gui"
+      ],
+      "tags": [
+        "android",
+        "decompile"
+      ],
+      "homepage": "https://github.com/skylot/jadx",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "apktool",
+      "name": "Apktool",
+      "category": "android",
+      "executables": [
+        "apktool"
+      ],
+      "tags": [
+        "android",
+        "static"
+      ],
+      "homepage": "https://apktool.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "dex2jar",
+      "name": "dex2jar",
+      "category": "android",
+      "executables": [
+        "d2j-dex2jar",
+        "d2j-dex2jar.sh"
+      ],
+      "tags": [
+        "android",
+        "decompile"
+      ],
+      "homepage": "https://github.com/pxb1988/dex2jar",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "baksmali",
+      "name": "baksmali",
+      "category": "android",
+      "executables": [
+        "baksmali"
+      ],
+      "tags": [
+        "android",
+        "disassemble"
+      ],
+      "homepage": "https://github.com/JesusFreke/smali",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "smali",
+      "name": "smali",
+      "category": "android",
+      "executables": [
+        "smali"
+      ],
+      "tags": [
+        "android",
+        "assemble"
+      ],
+      "homepage": "https://github.com/JesusFreke/smali",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "androguard",
+      "name": "Androguard",
+      "category": "android",
+      "executables": [
+        "androguard"
+      ],
+      "tags": [
+        "android",
+        "static"
+      ],
+      "homepage": "https://github.com/androguard/androguard",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "mobsf",
+      "name": "MobSF",
+      "category": "android",
+      "executables": [
+        "mobsf"
+      ],
+      "tags": [
+        "android",
+        "apple",
+        "security"
+      ],
+      "homepage": "https://github.com/MobSF/Mobile-Security-Framework-MobSF",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "objection",
+      "name": "Objection",
+      "category": "android",
+      "executables": [
+        "objection"
+      ],
+      "tags": [
+        "android",
+        "apple",
+        "runtime"
+      ],
+      "homepage": "https://github.com/sensepost/objection",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "jeb",
+      "name": "JEB Decompiler",
+      "category": "android",
+      "executables": [
+        "jeb"
+      ],
+      "tags": [
+        "android",
+        "decompile"
+      ],
+      "homepage": "https://www.pnfsoftware.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "bundletool",
+      "name": "Bundletool",
+      "category": "android",
+      "executables": [
+        "bundletool"
+      ],
+      "tags": [
+        "android",
+        "static"
+      ],
+      "homepage": "https://github.com/google/bundletool",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ilspy",
+      "name": "ILSpy",
+      "category": "dotnet",
+      "executables": [
+        "ilspycmd"
+      ],
+      "tags": [
+        "dotnet",
+        "decompile"
+      ],
+      "homepage": "https://github.com/icsharpcode/ILSpy",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "dnspyex",
+      "name": "dnSpyEx",
+      "category": "dotnet",
+      "executables": [
+        "dnSpy"
+      ],
+      "tags": [
+        "dotnet",
+        "windows",
+        "decompile"
+      ],
+      "homepage": "https://github.com/dnSpyEx/dnSpy",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ildasm",
+      "name": "IL Disassembler",
+      "category": "dotnet",
+      "executables": [
+        "ildasm"
+      ],
+      "tags": [
+        "dotnet",
+        "static"
+      ],
+      "homepage": "https://learn.microsoft.com/dotnet/framework/tools/ildasm-exe-il-disassembler",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "monodis",
+      "name": "Mono Disassembler",
+      "category": "dotnet",
+      "executables": [
+        "monodis"
+      ],
+      "tags": [
+        "dotnet",
+        "static"
+      ],
+      "homepage": "https://www.mono-project.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "dotnet",
+      "name": "dotnet CLI",
+      "category": "dotnet",
+      "executables": [
+        "dotnet"
+      ],
+      "tags": [
+        "dotnet",
+        "build"
+      ],
+      "homepage": "https://dotnet.microsoft.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "java-javap",
+      "name": "javap",
+      "category": "java",
+      "executables": [
+        "javap"
+      ],
+      "tags": [
+        "java",
+        "android",
+        "static"
+      ],
+      "homepage": "https://docs.oracle.com/en/java/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "cfr",
+      "name": "CFR Java Decompiler",
+      "category": "java",
+      "executables": [
+        "cfr"
+      ],
+      "tags": [
+        "java",
+        "decompile"
+      ],
+      "homepage": "https://www.benf.org/other/cfr/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "procyon",
+      "name": "Procyon",
+      "category": "java",
+      "executables": [
+        "procyon"
+      ],
+      "tags": [
+        "java",
+        "decompile"
+      ],
+      "homepage": "https://github.com/mstrobel/procyon",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "otool",
+      "name": "otool",
+      "category": "apple",
+      "executables": [
+        "otool"
+      ],
+      "tags": [
+        "apple",
+        "native",
+        "static"
+      ],
+      "homepage": "https://developer.apple.com/",
+      "integration": "static-adapter",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "lipo",
+      "name": "lipo",
+      "category": "apple",
+      "executables": [
+        "lipo"
+      ],
+      "tags": [
+        "apple",
+        "native",
+        "static"
+      ],
+      "homepage": "https://developer.apple.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "codesign",
+      "name": "codesign",
+      "category": "apple",
+      "executables": [
+        "codesign"
+      ],
+      "tags": [
+        "apple",
+        "static"
+      ],
+      "homepage": "https://developer.apple.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "jtool2",
+      "name": "jtool2",
+      "category": "apple",
+      "executables": [
+        "jtool2"
+      ],
+      "tags": [
+        "apple",
+        "native"
+      ],
+      "homepage": "https://www.newosxbook.com/tools/jtool.html",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ipsw",
+      "name": "ipsw",
+      "category": "apple",
+      "executables": [
+        "ipsw"
+      ],
+      "tags": [
+        "apple",
+        "firmware"
+      ],
+      "homepage": "https://github.com/blacktop/ipsw",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "wasm-tools",
+      "name": "wasm-tools",
+      "category": "wasm",
+      "executables": [
+        "wasm-tools"
+      ],
+      "tags": [
+        "wasm",
+        "static"
+      ],
+      "homepage": "https://github.com/bytecodealliance/wasm-tools",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "wabt",
+      "name": "WABT",
+      "category": "wasm",
+      "executables": [
+        "wasm2wat",
+        "wasm-objdump"
+      ],
+      "tags": [
+        "wasm",
+        "static"
+      ],
+      "homepage": "https://github.com/WebAssembly/wabt",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "binaryen",
+      "name": "Binaryen",
+      "category": "wasm",
+      "executables": [
+        "wasm-opt",
+        "wasm-dis"
+      ],
+      "tags": [
+        "wasm",
+        "static"
+      ],
+      "homepage": "https://github.com/WebAssembly/binaryen",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "wasmtime",
+      "name": "Wasmtime",
+      "category": "wasm",
+      "executables": [
+        "wasmtime"
+      ],
+      "tags": [
+        "wasm",
+        "runtime"
+      ],
+      "homepage": "https://wasmtime.dev/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "node",
+      "name": "Node.js",
+      "category": "javascript",
+      "executables": [
+        "node"
+      ],
+      "tags": [
+        "javascript",
+        "electron",
+        "web"
+      ],
+      "homepage": "https://nodejs.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "npm",
+      "name": "npm",
+      "category": "javascript",
+      "executables": [
+        "npm"
+      ],
+      "tags": [
+        "javascript",
+        "electron",
+        "web"
+      ],
+      "homepage": "https://www.npmjs.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "asar",
+      "name": "asar",
+      "category": "javascript",
+      "executables": [
+        "asar"
+      ],
+      "tags": [
+        "electron",
+        "static"
+      ],
+      "homepage": "https://github.com/electron/asar",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "ripgrep",
+      "name": "ripgrep",
+      "category": "javascript",
+      "executables": [
+        "rg"
+      ],
+      "tags": [
+        "javascript",
+        "electron",
+        "web",
+        "source"
+      ],
+      "homepage": "https://github.com/BurntSushi/ripgrep",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "semgrep",
+      "name": "Semgrep",
+      "category": "javascript",
+      "executables": [
+        "semgrep"
+      ],
+      "tags": [
+        "source",
+        "security",
+        "web"
+      ],
+      "homepage": "https://semgrep.dev/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "esbuild",
+      "name": "esbuild",
+      "category": "javascript",
+      "executables": [
+        "esbuild"
+      ],
+      "tags": [
+        "javascript",
+        "source"
+      ],
+      "homepage": "https://esbuild.github.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "source-map-explorer",
+      "name": "Source Map Explorer",
+      "category": "javascript",
+      "executables": [
+        "source-map-explorer"
+      ],
+      "tags": [
+        "javascript",
+        "web"
+      ],
+      "homepage": "https://github.com/danvk/source-map-explorer",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "playwright",
+      "name": "Playwright",
+      "category": "javascript",
+      "executables": [
+        "playwright"
+      ],
+      "tags": [
+        "web",
+        "runtime"
+      ],
+      "homepage": "https://playwright.dev/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "chrome",
+      "name": "Chrome / Chromium",
+      "category": "javascript",
+      "executables": [
+        "chromium",
+        "google-chrome",
+        "chrome"
+      ],
+      "tags": [
+        "web",
+        "electron",
+        "runtime"
+      ],
+      "homepage": "https://www.chromium.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "mitmproxy",
+      "name": "mitmproxy",
+      "category": "network",
+      "executables": [
+        "mitmproxy",
+        "mitmdump"
+      ],
+      "tags": [
+        "network",
+        "web",
+        "runtime"
+      ],
+      "homepage": "https://mitmproxy.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "wireshark",
+      "name": "Wireshark",
+      "category": "network",
+      "executables": [
+        "wireshark"
+      ],
+      "tags": [
+        "network",
+        "forensics"
+      ],
+      "homepage": "https://www.wireshark.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "tshark",
+      "name": "tshark",
+      "category": "network",
+      "executables": [
+        "tshark"
+      ],
+      "tags": [
+        "network",
+        "forensics"
+      ],
+      "homepage": "https://www.wireshark.org/docs/man-pages/tshark.html",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "tcpdump",
+      "name": "tcpdump",
+      "category": "network",
+      "executables": [
+        "tcpdump"
+      ],
+      "tags": [
+        "network",
+        "runtime"
+      ],
+      "homepage": "https://www.tcpdump.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "scapy",
+      "name": "Scapy",
+      "category": "network",
+      "executables": [
+        "scapy"
+      ],
+      "tags": [
+        "network",
+        "forensics"
+      ],
+      "homepage": "https://scapy.net/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "protobuf",
+      "name": "Protocol Buffers compiler",
+      "category": "network",
+      "executables": [
+        "protoc"
+      ],
+      "tags": [
+        "network",
+        "protocol"
+      ],
+      "homepage": "https://protobuf.dev/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "grpcurl",
+      "name": "grpcurl",
+      "category": "network",
+      "executables": [
+        "grpcurl"
+      ],
+      "tags": [
+        "network",
+        "protocol"
+      ],
+      "homepage": "https://github.com/fullstorydev/grpcurl",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "burp",
+      "name": "Burp Suite",
+      "category": "network",
+      "executables": [
+        "burpsuite"
+      ],
+      "tags": [
+        "web",
+        "security"
+      ],
+      "homepage": "https://portswigger.net/burp",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "zap",
+      "name": "OWASP ZAP",
+      "category": "network",
+      "executables": [
+        "zap.sh",
+        "zap"
+      ],
+      "tags": [
+        "web",
+        "security"
+      ],
+      "homepage": "https://www.zaproxy.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "caido",
+      "name": "Caido",
+      "category": "network",
+      "executables": [
+        "caido"
+      ],
+      "tags": [
+        "web",
+        "security"
+      ],
+      "homepage": "https://caido.io/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "jq",
+      "name": "jq",
+      "category": "data",
+      "executables": [
+        "jq"
+      ],
+      "tags": [
+        "all",
+        "data"
+      ],
+      "homepage": "https://jqlang.github.io/jq/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "sqlite3",
+      "name": "SQLite CLI",
+      "category": "data",
+      "executables": [
+        "sqlite3"
+      ],
+      "tags": [
+        "all",
+        "data"
+      ],
+      "homepage": "https://www.sqlite.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "category": "data",
+      "executables": [
+        "python3",
+        "python"
+      ],
+      "tags": [
+        "all",
+        "scripting"
+      ],
+      "homepage": "https://www.python.org/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "category": "data",
+      "executables": [
+        "git"
+      ],
+      "tags": [
+        "all",
+        "source"
+      ],
+      "homepage": "https://git-scm.com/",
+      "integration": "discovery-only",
+      "requires_authorization": true,
+      "bundled": false
+    }
+  ]
+}
