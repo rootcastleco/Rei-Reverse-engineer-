@@ -5,6 +5,8 @@ import argparse
 import json
 from pathlib import Path
 import sys
+import sqlite3
+import zipfile
 
 from . import __version__
 from .evidence import append_event, create_case, render_report, verify_case
@@ -12,6 +14,9 @@ from .inspector import inspect_path
 from .planner import build_plan
 from .registry import list_tools, run_static_adapter, tool_doctor
 from .signals import scan_signals, compare_files
+from .deep import deep_inspect, structural_diff
+from .casebook import index_cases, search_cases, bundle_case, verify_bundle
+from .workflow import investigate
 
 
 def _json(value: object) -> None:
@@ -36,6 +41,13 @@ def parser() -> argparse.ArgumentParser:
     signals = sub.add_parser("signals", help="Bounded entropy and embedded-signature analysis")
     signals.add_argument("target")
     signals.add_argument("--include-strings", action="store_true", help="Show raw ASCII strings; review for sensitive data")
+    inv = sub.add_parser("investigate", help="Run bounded all-in-one static evidence pipeline")
+    inv.add_argument("target")
+    deep = sub.add_parser("deep", help="Parse bounded PE/ELF/WASM sections, imports and symbols without running target")
+    deep.add_argument("target")
+    structural = sub.add_parser("diff", help="Compare static PE/ELF/WASM structures across revisions")
+    structural.add_argument("before")
+    structural.add_argument("after")
     compare = sub.add_parser("compare", help="Compare two local files, hashes and byte offsets")
     compare.add_argument("before")
     compare.add_argument("after")
@@ -56,6 +68,18 @@ def parser() -> argparse.ArgumentParser:
     cr = cs.add_parser("report", help="Render current case provenance report")
     cr.add_argument("case_path")
     cr.add_argument("--output", help="Write Markdown to this explicit path")
+    cx = cs.add_parser("index", help="Explicitly refresh a local, metadata-only SQLite casebook")
+    cx.add_argument("workspace")
+    csearch = cs.add_parser("search", help="Search an existing casebook without modifying it")
+    csearch.add_argument("workspace")
+    csearch.add_argument("--query", default="")
+    csearch.add_argument("--kind", default="")
+    csearch.add_argument("--limit", type=int, default=25)
+    cb = cs.add_parser("bundle", help="Export verified case metadata only, never the artifact")
+    cb.add_argument("case_path")
+    cb.add_argument("output")
+    bv = cs.add_parser("bundle-verify", help="Verify metadata bundle checksums (not authenticity)")
+    bv.add_argument("bundle_path")
     run = sub.add_parser("run", help="Run one fixed, vetted static adapter (explicit opt-in)")
     run.add_argument("tool_id")
     run.add_argument("target")
@@ -83,6 +107,12 @@ def main(argv: list[str] | None = None) -> int:
             _json({"inspection": result, "plan": build_plan(result)})
         elif a.command == "signals":
             _json(scan_signals(a.target, include_strings=a.include_strings))
+        elif a.command == "investigate":
+            _json(investigate(a.target))
+        elif a.command == "deep":
+            _json(deep_inspect(a.target))
+        elif a.command == "diff":
+            _json(structural_diff(a.before, a.after))
         elif a.command == "compare":
             _json(compare_files(a.before, a.after))
         elif a.command == "case":
@@ -90,6 +120,16 @@ def main(argv: list[str] | None = None) -> int:
                 _json(create_case(a.target, a.workspace))
             elif a.case_command == "verify":
                 result = verify_case(a.case_path, recheck_target=a.recheck_target)
+                _json(result)
+                return 0 if result["valid"] else 3
+            elif a.case_command == "index":
+                _json(index_cases(a.workspace))
+            elif a.case_command == "search":
+                _json(search_cases(a.workspace, query=a.query, kind=a.kind, limit=a.limit))
+            elif a.case_command == "bundle":
+                _json(bundle_case(a.case_path, a.output))
+            elif a.case_command == "bundle-verify":
+                result = verify_bundle(a.bundle_path)
                 _json(result)
                 return 0 if result["valid"] else 3
             elif a.case_command == "note":
@@ -122,7 +162,7 @@ def main(argv: list[str] | None = None) -> int:
             from .web import serve_local
             serve_local(a.port)
         return 0
-    except (OSError, ValueError, PermissionError, TimeoutError, KeyError) as e:
+    except (OSError, ValueError, PermissionError, TimeoutError, KeyError, sqlite3.DatabaseError, zipfile.BadZipFile) as e:
         print(f"rei-rea: {type(e).__name__}: {e}", file=sys.stderr)
         return 2
 

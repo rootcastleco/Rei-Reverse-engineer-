@@ -12,7 +12,7 @@ Use only the target the user provides or explicitly authorizes. Establish the qu
 
 ## Available tooling
 
-Preferred: `readelf`, `objdump`, `llvm-readobj`, `Ghidra`, `radare2`, `Rizin`, `Cutter`, `x64dbg`, `LLDB`. First run `rei-rea inspect PATH` and `rei-rea plan PATH`; `rei-rea run readelf PATH --allow-external` is opt-in only.
+Preferred: `readelf`, `objdump`, `llvm-readobj`, `Ghidra`, `radare2`, `Rizin`, `Cutter`, `x64dbg`, `LLDB`. First run `rei-rea inspect PATH`, `rei-rea deep PATH` (PE/ELF only) and `rei-rea plan PATH`; `rei-rea run readelf PATH --allow-external` is opt-in only.
 
 ## Procedure
 

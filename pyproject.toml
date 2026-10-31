@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rootcastle-rei-rea"
-version = "0.1.0"
+version = "0.2.0"
 description = "Evidence-first reverse engineering workbench: central tool catalog, static triage, MCP, skills and tamper-evident cases"
 readme = "README.md"
 requires-python = ">=3.10"

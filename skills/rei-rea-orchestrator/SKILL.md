@@ -12,7 +12,7 @@ Use only the target the user provides or explicitly authorizes. Establish the qu
 
 ## Available tooling
 
-Use `rei-rea tools doctor`, `rei-rea inspect TARGET`, `rei-rea plan TARGET`, and `rei-rea case init TARGET`. In an MCP client, prefer `rei_rea_inspect`, `rei_rea_plan`, `rei_rea_case_create`, `rei_rea_tools` when actually registered.
+Use `rei-rea investigate TARGET` for a bounded read-only workflow; use `rei-rea deep TARGET` and `rei-rea diff OLD NEW` for format-specific questions. Use `rei-rea tools doctor`, `rei-rea plan TARGET`, and `rei-rea case init TARGET` for candidate tools and evidence cases. In an MCP client, prefer `rei_rea_inspect`, `rei_rea_plan`, `rei_rea_case_create`, `rei_rea_tools` when actually registered.
 
 ## Procedure
 

@@ -23,3 +23,14 @@ All analysis should be confined to software, firmware and recordings the operato
 ### Disclosure and incident handling
 
 Do not commit binaries, credentials, customer captures or raw memory to the public repo. Redact logs. For a confirmed issue, preserve the target SHA-256, test fixture, affected version and reproduction steps without customer secrets. Keep the legacy path unchanged until tests pass; a provider can be disabled by removing its explicit invocation, with no database migration.
+
+## v0.2 added boundaries
+
+| Risk | Control | Residual limitation |
+| --- | --- | --- |
+| Malformed PE, ELF, WASM import, header or LEB data | Checked reads, capped counts, typed parse errors, synthetic regression fixtures | Incomplete spec coverage; native parser fuzzing still needed for production-hardening |
+| Path disclosure through case search | Local-only workspace and MCP stdio; case index has no event payload or binary bytes | Local paths/hashes and metadata can still be sensitive |
+| ZIP metadata bundle tampering | SHA-256 manifest and integrity verification | A writer can replace both file and digest; no external signer or timestamp |
+| Stale SQLite case index | Explicit indexing, `indexed_utc`, verify selected case again | Search results are not live proof |
+| Target mutation between analysis steps | Re-hash before and after all-in-one pipeline | Concurrent replacement/rewrite between checks is still possible; use OS snapshot for higher assurance |
+| Denial of service through target size | 64 MiB workflow limit, 32 MiB parser read cap, bounded loops | Full hashing remains linear in input size; use host disk/CPU quotas |

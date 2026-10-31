@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 import sys
+import sqlite3
+import zipfile
 
 from . import __version__
 from .evidence import create_case, verify_case
@@ -10,6 +12,9 @@ from .inspector import inspect_path
 from .planner import build_plan
 from .registry import list_tools, tool_doctor
 from .signals import scan_signals, compare_files
+from .deep import deep_inspect, structural_diff
+from .casebook import search_cases, verify_bundle
+from .workflow import investigate
 
 PROTOCOL = "2025-03-26"
 MAX_INBOUND = 1024 * 1024
@@ -36,6 +41,17 @@ TOOLS = [
           {"target": {"type": "string"}, "workspace": {"type": "string"}}, ["target"]),
     _tool("case_verify", "Verify the local evidence hash chain; optional target recheck.",
           {"case_path": {"type": "string"}, "recheck_target": {"type": "boolean"}}, ["case_path"]),
+    _tool("investigate", "One-call reproducible static triage, structural scan, signals, plan and SHA checks.",
+          {"target": {"type": "string"}}, ["target"]),
+    _tool("deep", "Bounded dependency-free PE/ELF/WASM structural analysis; never runs artifact.",
+          {"target": {"type": "string"}}, ["target"]),
+    _tool("diff", "Compare structured PE/ELF/WASM metadata across two exact artifacts.",
+          {"before": {"type": "string"}, "after": {"type": "string"}}, ["before", "after"]),
+    _tool("case_search", "Search an existing metadata-only local case index; never updates or creates it.",
+          {"workspace": {"type": "string"}, "query": {"type": "string"}, "kind": {"type": "string"},
+           "limit": {"type": "integer"}}, ["workspace"]),
+    _tool("bundle_verify", "Verify metadata bundle checksums; not an independent signature.",
+          {"bundle_path": {"type": "string"}}, ["bundle_path"]),
 ]
 
 
@@ -51,7 +67,9 @@ def invoke_tool(name: str, a: dict) -> dict:
     if set(schema["required"]) - set(a):
         raise ValueError("Required tool argument missing")
     for key, value in a.items():
-        if not isinstance(value, bool if schema["properties"][key]["type"] == "boolean" else str):
+        expected_type = schema["properties"][key]["type"]
+        expected = {"boolean": bool, "string": str, "integer": int}[expected_type]
+        if not isinstance(value, expected) or (expected_type == "integer" and isinstance(value, bool)):
             raise ValueError(f"Wrong value type for argument: {key}")
     if name == "rei_rea_tools":
         return {"tools": list_tools(tag=a.get("tag"), installed_only=a.get("installed_only", False))}
@@ -70,6 +88,16 @@ def invoke_tool(name: str, a: dict) -> dict:
         return create_case(a["target"], a.get("workspace", ".rei-cases"))
     if name == "rei_rea_case_verify":
         return verify_case(a["case_path"], recheck_target=a.get("recheck_target", False))
+    if name == "rei_rea_investigate":
+        return investigate(a["target"])
+    if name == "rei_rea_deep":
+        return deep_inspect(a["target"])
+    if name == "rei_rea_diff":
+        return structural_diff(a["before"], a["after"])
+    if name == "rei_rea_case_search":
+        return search_cases(a["workspace"], query=a.get("query", ""), kind=a.get("kind", ""), limit=a.get("limit", 25))
+    if name == "rei_rea_bundle_verify":
+        return verify_bundle(a["bundle_path"])
     raise ValueError("Unknown tool")
 
 
@@ -97,7 +125,7 @@ def _result(request: dict) -> dict | None:
         else:
             return {"jsonrpc": "2.0", "id": ident, "error": {"code": -32601, "message": "Method not found"}}
         return {"jsonrpc": "2.0", "id": ident, "result": value}
-    except (OSError, ValueError, KeyError, PermissionError, TimeoutError) as exc:
+    except (OSError, ValueError, KeyError, PermissionError, TimeoutError, sqlite3.DatabaseError, zipfile.BadZipFile) as exc:
         if method == "tools/call":
             return {"jsonrpc": "2.0", "id": ident, "result": {"content": [{"type": "text", "text": f"{type(exc).__name__}: {exc}"}], "isError": True}}
         return {"jsonrpc": "2.0", "id": ident, "error": {"code": -32602, "message": str(exc)}}
