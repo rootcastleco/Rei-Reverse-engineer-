@@ -1,5 +1,7 @@
 # REI REA
 
+> **Upstream updates:** The original [morluto/rea](https://github.com/morluto/rea) revision is tracked separately in [upstream/rea](upstream/rea) and receives scheduled review PRs. [How synchronization works](docs/UPSTREAM-SYNC.md).
+
 ### Evidence-first reverse engineering. One workbench. Verifiable findings.
 
 [![CI](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml/badge.svg)](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml)

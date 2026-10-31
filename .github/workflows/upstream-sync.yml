@@ -1,0 +1,79 @@
+name: Track upstream REA
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: upstream-rea-sync
+  cancel-in-progress: false
+jobs:
+  propose-upstream-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Rootcastle main (without running upstream)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+          submodules: false
+          fetch-depth: 0
+      - name: Resolve upstream main commit over GitHub API
+        id: upstream
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha="$(gh api repos/morluto/rea/commits/main --jq .sha)"
+          [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          current="$(git ls-tree HEAD upstream/rea | awk '{print $3}')"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          if [[ "$sha" == "$current" ]]; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Prepare review branch with pinned upstream gitlink
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          NEW_SHA: ${{ steps.upstream.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout -B automation/upstream-rea main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git update-index --add --cacheinfo "160000,$NEW_SHA,upstream/rea"
+          git diff --cached --check
+          git diff --cached --exit-code && exit 1 || test "$?" -eq 1
+          git commit -m "chore(upstream): track morluto/rea $NEW_SHA"
+      - name: Run Rootcastle regression tests before proposing update
+        if: steps.upstream.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -e .
+          python -m unittest discover -s tests -q
+      - name: Push branch and open review PR
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEW_SHA: ${{ steps.upstream.outputs.sha }}
+          OLD_SHA: ${{ steps.upstream.outputs.current }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git push --force-with-lease origin HEAD:refs/heads/automation/upstream-rea
+          if [[ "$OLD_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            change_url="https://github.com/morluto/rea/compare/$OLD_SHA...$NEW_SHA"
+          else
+            change_url="https://github.com/morluto/rea/commit/$NEW_SHA"
+          fi
+          body="$(printf 'Automated upstream REA update.\n\nOld: `%s`\nNew: `%s`\nCompare: %s\n\nThis PR updates only `upstream/rea` (gitlink). It does not overwrite Rootcastle code, execute upstream source, or install tools. Rootcastle unit tests passed in the update workflow. Review upstream source, license, dependency changes, upstream CI and integration compatibility before merge.\n\nGitHub Actions using GITHUB_TOKEN may not automatically trigger PR CI from its own push; use the completed sync workflow and manually dispatch CI if needed.' "$OLD_SHA" "$NEW_SHA" "$change_url")"
+          existing="$(gh pr list --base main --head automation/upstream-rea --state open --json number --jq '.[0].number // empty')"
+          if [[ -n "$existing" ]]; then
+            gh pr edit "$existing" --title "chore(upstream): sync morluto/rea" --body "$body"
+          else
+            gh pr create --base main --head automation/upstream-rea --title "chore(upstream): sync morluto/rea" --body "$body"
+          fi
