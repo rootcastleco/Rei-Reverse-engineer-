@@ -28,7 +28,7 @@ For `--apply`, set `GH_TOKEN` or `GITHUB_TOKEN` in the local process environment
 - [ ] README Quick start runs from a fresh clone.
 - [ ] GitHub Actions has run the Linux, macOS and Windows test matrix on the published commit.
 - [ ] License link resolves to the existing MIT LICENSE file.
-- [ ] All linked documentation and ten skill directories resolve.
+- [ ] All linked documentation and twelve skill directories resolve.
 - [ ] A release tag is made only after CI and packaging are verified, not merely because the README displays `v0.1.0`.
 - [ ] A concise GitHub release note states implemented and missing capabilities.
 - [ ] Optional: create a 1280 × 640 social preview with original Rootcastle artwork; confirm display before public promotion.

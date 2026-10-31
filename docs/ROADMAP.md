@@ -34,3 +34,19 @@
 - [ ] Release signing, reproducible builds, SBOM, dependency and container attestations.
 
 **Not claimed:** upstream REA feature parity, full Ghidra integration, production hardening, or automatic operation of every cataloged engine. A green unit-test suite alone does not establish those properties.
+
+## Delivered in v0.2
+
+- [x] Read-only bounded PE/ELF/WASM structural analysis and stable hash identities.
+- [x] Structural artifact-version comparisons and single-command investigations.
+- [x] Metadata-only local SQLite casebook and explicit search/index operations.
+- [x] Portable case bundles with internal checksums, excluding raw targets.
+- [x] Expanded stdio MCP surface (13 named tools) and two additional specialist skills.
+
+## v0.3 priorities
+
+- [ ] Integrate upstream REA through version-pinned, contract-tested provider adapters after API capability negotiation.
+- [ ] Add DEX class/method indexes and PE relocation/resource directories, ELF extended-header and symbol/xref validation.
+- [ ] Run coverage-guided parser fuzzing (AFL++/libFuzzer via wrapper) and establish memory/CPU budgets.
+- [ ] Optional signed, externally timestamped evidence receipts with documented key custody and rotation.
+- [ ] Portable dashboard for casebook browsing with explicit opt-in, authentication and local threat model.

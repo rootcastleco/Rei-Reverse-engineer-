@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import argparse
 
 ROOT=Path(__file__).resolve().parents[1]
 INIT=Path('/home/oai/skills/skill-creator/scripts/init_skill.py')
@@ -84,7 +85,10 @@ SPECS = {
 }
 
 
-def run():
+def run(force: bool = False):
+    present = [slug for slug in SPECS if (ROOT/'skills'/slug/'SKILL.md').exists()]
+    if present and not force:
+        raise SystemExit("Refusing to overwrite curated skills. Pass --force to explicitly regenerate legacy templates.")
     for slug, spec in SPECS.items():
         target=ROOT/'skills'/slug
         if not target.exists():
@@ -173,6 +177,7 @@ Use absolute paths. Command availability and tool installation are separate. Do 
 """Check the installed REI REA CLI without downloading or executing targets."""
 import subprocess
 import sys
+import argparse
 
 result = subprocess.run([sys.executable, "-m", "rei_rea", "tools", "doctor"], check=False)
 raise SystemExit(result.returncode)
@@ -181,4 +186,6 @@ raise SystemExit(result.returncode)
 
 
 if __name__=='__main__':
-    run()
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--force', action='store_true')
+    run(parser.parse_args().force)

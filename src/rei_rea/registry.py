@@ -86,7 +86,10 @@ def run_static_adapter(tool_id: str, target: str | Path, *, allow_external: bool
         raise PermissionError("External tools are disabled; opt in with --allow-external")
     if tool_id not in STATIC_ADAPTERS:
         raise RegistryError(f"No vetted static adapter for {tool_id!r}; discovery-only tools cannot be executed")
-    resolved = Path(target).expanduser().resolve(strict=True)
+    raw = Path(target).expanduser()
+    if raw.is_symlink():
+        raise RegistryError("Symlink target refused")
+    resolved = raw.resolve(strict=True)
     if not resolved.is_file():
         raise RegistryError("Static adapter requires a regular file")
     if timeout <= 0 or timeout > 60:

@@ -1,6 +1,6 @@
 # REI REA skills · installation and boundaries
 
-There are **10** independent skill folders under `/skills`, each with `SKILL.md`, `agents/openai.yaml` and focused references.
+There are **12** independent skill folders under `/skills`, each with `SKILL.md`, `agents/openai.yaml` and focused references.
 
 - Primary public upload artifact: `dist/skill.zip` contains only `rei-rea-orchestrator` as a valid standalone skill instruction bundle.
 - Specialist skill folders can each be packaged individually with `python /home/oai/skills/skill-creator/scripts/package_skill.py skills/rei-native-binaries dist/...` when the packager is available. Alternatively copy each folder into your own agent skill directory.
@@ -20,3 +20,5 @@ python skills/rei-rea-orchestrator/scripts/doctor.py
 ```
 
 Exact paths to the `skill-creator` validator/packager depend on the environment; the commands above were used in the build environment and are not guaranteed on an end user's machine.
+
+The v0.2 specialist skills `rei-binary-intelligence` and `rei-casebook-forensics` cover built-in structural parsers and metadata-only searchable evidence exports. The legacy skill generator now refuses to overwrite curated contents without an explicit `--force`.

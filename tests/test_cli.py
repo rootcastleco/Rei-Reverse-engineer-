@@ -47,3 +47,27 @@ class CliTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class V02CliTests(unittest.TestCase):
+    def test_structural_and_pipeline_cli(self):
+        from rei_rea.cli import main
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / 'sample.wasm'
+            p.write_bytes(b'\0asm\x01\0\0\0')
+            self.assertEqual(main(['deep', str(p)]), 0)
+            self.assertEqual(main(['investigate', str(p)]), 0)
+            self.assertEqual(main(['diff', str(p), str(p)]), 0)
+
+    def test_casebook_commands(self):
+        from rei_rea.cli import main
+        from rei_rea.evidence import create_case
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            target = root / 'file'; target.write_bytes(b'abcd')
+            case = create_case(target, root / 'cases')['case_path']
+            self.assertEqual(main(['case','index',str(root / 'cases')]), 0)
+            self.assertEqual(main(['case','search',str(root / 'cases'),'--query','file']), 0)
+            archive = root / 'bundle.zip'
+            self.assertEqual(main(['case','bundle',case,str(archive)]), 0)
+            self.assertEqual(main(['case','bundle-verify',str(archive)]), 0)

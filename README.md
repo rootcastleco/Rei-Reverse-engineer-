@@ -4,20 +4,20 @@
 
 [![CI](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml/badge.svg)](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-0E3D8A?logo=python&logoColor=white)](https://www.python.org/)
-[![MCP server](https://img.shields.io/badge/MCP-8%20tools-228B55)](#connect-an-ai-coding-agent)
+[![MCP server](https://img.shields.io/badge/MCP-13%20tools-228B55)](#connect-an-ai-coding-agent)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0E3D8A)](LICENSE)
-[![Status: Alpha](https://img.shields.io/badge/status-v0.1.0%20alpha-555555)](CHANGELOG.md)
+[![Status: Alpha](https://img.shields.io/badge/status-v0.2.0%20alpha-555555)](CHANGELOG.md)
 
 **REI REA (Rootcastle Reverse Engineering Workbench)** gives developers and security researchers a consistent starting point for inspecting software artifacts, finding suitable analysis tools, and recording what the evidence actually supports.
 
-It brings together a **124-entry reverse-engineering tool catalog**, **read-only artifact triage**, **SHA-256 evidence cases**, a **JSON command-line interface**, a local **Model Context Protocol (MCP) server**, a **loopback dashboard**, and **10 specialist AI-agent skills**.
+It brings together a **124-entry reverse-engineering tool catalog**, **read-only artifact triage**, **SHA-256 evidence cases**, a **JSON command-line interface**, a local **Model Context Protocol (MCP) server**, a **loopback dashboard**, and **12 specialist AI-agent skills**.
 
 The objective is not to produce confident-looking pseudocode. It is to make each conclusion **traceable, testable, and reproducible**.
 
 > [!IMPORTANT]
 > **Alpha scope, stated precisely.** REI REA is an original Rootcastle implementation, not an official fork or feature-parity replacement of [morluto/rea](https://github.com/morluto/rea). A catalog entry does **not** mean a tool is installed, integrated, or validated. Nine fixed static CLI adapters are implemented. External decompilers, debuggers, mobile instrumentation systems, and the upstream REA server are **not included**. See [Capabilities and limitations](#capabilities-and-limitations).
 
-**[Quick start](#quick-start)** · **[Capabilities](#capabilities-and-limitations)** · **[Architecture](#architecture)** · **[MCP integration](#connect-an-ai-coding-agent)** · **[Agent skills](#ten-specialist-agent-skills)** · **[Security](#safety-and-trust-boundaries)** · **[Roadmap](docs/ROADMAP.md)**
+**[Quick start](#quick-start)** · **[Capabilities](#capabilities-and-limitations)** · **[Architecture](#architecture)** · **[MCP integration](#connect-an-ai-coding-agent)** · **[Agent skills](#twelve-specialist-agent-skills)** · **[Security](#safety-and-trust-boundaries)** · **[Roadmap](docs/ROADMAP.md)**
 
 ---
 
@@ -30,7 +30,7 @@ A reverse-engineering session usually involves multiple disconnected tools. Find
 | Which tool should I use? | Query one registry by artifact type and capability. | 124 catalog entries with tags, homepages, and PATH checks. |
 | What exactly did I inspect? | Identify the target before discussing behavior. | SHA-256 hashes, bounded format inspection, and archive metadata. |
 | Can I reproduce this finding? | Keep observations linked to one artifact identity. | Local hash-linked case events and integrity verification. |
-| Can an AI agent use the same evidence? | Expose structured operations over a single interface. | JSON CLI plus eight local stdio MCP tools. |
+| Can an AI agent use the same evidence? | Expose structured operations over a single interface. | JSON CLI plus thirteen local stdio MCP tools. |
 | Can I add more analysis engines? | Use isolated provider contracts instead of rewriting the core. | Nine opt-in static adapters; advanced providers are planned. |
 | Is a model's explanation proof? | Distinguish what was seen from what was inferred. | `observed`, `inferred`, and `unknown` evidence states. |
 
@@ -62,12 +62,15 @@ Inspect one artifact **without executing it**:
 rei-rea inspect /path/to/your/sample.bin
 rei-rea signals /path/to/your/sample.bin
 rei-rea plan /path/to/your/sample.bin
+rei-rea deep /path/to/your/sample.exe
+rei-rea investigate /path/to/your/sample.wasm
 ```
 
 Compare two versions:
 
 ```bash
 rei-rea compare /path/to/old.bin /path/to/new.bin
+rei-rea diff /path/to/old.wasm /path/to/new.wasm
 ```
 
 These operations return structured JSON. Inspection uses signatures and bounded metadata reads; it does not decompile, unpack, or run the target. `signals --include-strings` is optional because extracted strings can contain confidential values.
@@ -89,20 +92,35 @@ rei-rea case note .rei-cases/CASE-ID \
 
 rei-rea case verify .rei-cases/CASE-ID --recheck-target
 rei-rea case report .rei-cases/CASE-ID --output finding.md
+rei-rea case index .rei-cases
+rei-rea case search .rei-cases --kind pe
+rei-rea case bundle .rei-cases/CASE-ID case-evidence.zip
+rei-rea case bundle-verify case-evidence.zip
 ```
 
 Every case has a target identity and a hash-linked observation sequence. The verifier detects changes to that local record. **This is tamper-evident bookkeeping, not a signed chain of custody or a trusted timestamp service.** Keep source artifacts and generated reports in an access-controlled workspace.
 
+## New in v0.2.0 — real structural analysis
+
+The dependency-free core can now parse **PE headers and imported APIs**, **ELF program/section tables and shared-library dependencies**, and **WebAssembly version 1 imports/exports** using bounded local reads. `rei-rea diff` compares parsed structures across exact artifact hashes; `rei-rea investigate` combines identification, bounded analysis, signal scanning and an evidence-aware plan, cross-checking the hash before and after each step.
+
+A new **SQLite casebook** explicitly indexes local case metadata for search by name, hash or format. Case exports include the manifest, hash-chain events, report and checksum manifest—**never original binaries**. See [v0.2 upgrade contract](docs/UPGRADE-V0.2.md).
+
+> This is **structural inspection, not decompilation or code execution**. PE/ELF/WASM parsers are intentionally partial implementations of large specifications. A complete parser status means the bounded parser finished without error, not that every security property has been verified.
+
 ## Capabilities and limitations
 
-| Area | Status in v0.1.0 | Implementation boundary |
+| Area | Status in v0.2.0 | Implementation boundary |
 | --- | --- | --- |
 | Tool discovery | **Implemented** | 124 metadata records; filtered searches and PATH availability. |
 | Artifact identification | **Implemented** | Static header checks for PE, ELF, Mach-O, WASM, DEX, SQLite, PCAP, and archive indicators. |
+| PE/ELF/WASM structure | **Implemented** | Bounded sections, imports/exports, ELF needed libraries, WASM section inventory; no full semantic validation. |
+| Local casebook | **Implemented** | Explicit SQLite metadata index/search, portable hash-checked evidence bundles. |
+| Single-call investigation | **Implemented** | Static pipeline with SHA cross-check; file size limited to 64 MiB. |
 | Bounded signals | **Implemented** | Entropy/signature probes and optional strings; scanning is capped. |
 | Version comparison | **Implemented** | File hashes and bounded byte differences. |
 | Local evidence cases | **Implemented** | SHA-256 identity, append-only hash-linked event records, verification, and Markdown reports. |
-| CLI and agent transport | **Implemented** | JSON CLI and eight stdio MCP tools. |
+| CLI and agent transport | **Implemented** | JSON CLI and thirteen stdio MCP tools. |
 | Dashboard | **Implemented** | Loopback-only catalog view; no target execution. |
 | External static adapters | **Opt-in** | Nine fixed commands; only executable tools present on the machine can run. |
 | Ghidra / IDA / Rizin session control | **Planned** | Names may be cataloged; no live session provider is included. |
@@ -179,7 +197,7 @@ For MCP clients that use the `mcpServers` JSON format, a typical entry is:
 
 The `rei-rea` executable must be available in the environment used by your MCP client. Some clients require a full executable path and a restart after configuration.
 
-**Eight exposed MCP tools:**
+**Thirteen exposed MCP tools:**
 
 | Tool | Purpose |
 | --- | --- |
@@ -191,16 +209,23 @@ The `rei-rea` executable must be available in the environment used by your MCP c
 | `rei_rea_compare` | Compare two local files. |
 | `rei_rea_case_create` | Start an evidence case. |
 | `rei_rea_case_verify` | Validate a case record. |
+| `rei_rea_investigate` | Read-only cross-hash-checked static analysis pipeline. |
+| `rei_rea_deep` | Parse bounded PE/ELF/WASM structures. |
+| `rei_rea_diff` | Compare binary structures across versions. |
+| `rei_rea_case_search` | Search an existing local casebook index. |
+| `rei_rea_bundle_verify` | Check checksums of an exported evidence bundle. |
 
-MCP registration gives access to **these eight operations only**. It does not install third-party engines, grant new filesystem permissions, or create a remote analysis service. Client-specific permission settings still apply.
+MCP registration gives access to **these thirteen operations only**. It does not install third-party engines, grant new filesystem permissions, or create a remote analysis service. Client-specific permission settings still apply.
 
-## Ten specialist agent skills
+## Twelve specialist agent skills
 
 Each skill is a separate directory with `SKILL.md`, agent metadata, and reference material. Skills route the investigation. They are **not executable analysis engines**.
 
 | Skill | Investigation domain |
 | --- | --- |
 | [`rei-rea-orchestrator`](skills/rei-rea-orchestrator/) | Intake, evidence routing, tool selection, and verification. |
+| [`rei-binary-intelligence`](skills/rei-binary-intelligence/) | Built-in bounded PE/ELF/WASM structural and version-diff analysis. |
+| [`rei-casebook-forensics`](skills/rei-casebook-forensics/) | SQLite evidence casebook and metadata-only bundle handoff. |
 | [`rei-native-binaries`](skills/rei-native-binaries/) | PE, ELF, Mach-O, symbols, imports, and ABI. |
 | [`rei-electron-and-js`](skills/rei-electron-and-js/) | Electron, ASAR, Node.js, preload scripts, and IPC. |
 | [`rei-android-apks`](skills/rei-android-apks/) | Android APK/AAB, DEX, manifest, and JNI. |
@@ -241,7 +266,7 @@ python -m unittest discover -s tests -v
 python -m rei_rea --version
 ```
 
-The initial local baseline passed **33/33 automated tests on 31 October 2026**. These cover artifact formats, archive warnings, opt-in boundaries, catalog consistency, evidence-chain tampering, CLI behavior, stdio MCP handshake, and loopback HTTP behavior. GitHub Actions defines a separate Linux, Windows, and macOS matrix for Python 3.10 and 3.13. **A local pass does not prove CI passed**; consult the live badge and Actions history.
+The v0.2 local baseline passed **46/46 automated tests on 1 November 2026**. These cover artifact formats, archive warnings, opt-in boundaries, catalog consistency, evidence-chain tampering, CLI behavior, stdio MCP handshake, and loopback HTTP behavior. GitHub Actions defines a separate Linux, Windows, and macOS matrix for Python 3.10 and 3.13. **A local pass does not prove CI passed**; consult the live badge and Actions history.
 
 Hardware behavior, mobile instrumentation, third-party engine accuracy, native decompilation parity, cloud deployment, and production performance are **not yet verified**.
 
@@ -274,7 +299,7 @@ No. [morluto/rea](https://github.com/morluto/rea) is an independent project. REI
 <details>
 <summary><strong>Can it decompile an APK or control Ghidra automatically?</strong></summary>
 
-Not in v0.1.0. The registry helps you discover relevant tools, and the skills document investigation workflows. Automated Ghidra, JADX, and Frida providers remain future work.
+Not in v0.2.0. The registry helps you discover relevant tools, and the skills document investigation workflows. Automated Ghidra, JADX, and Frida providers remain future work.
 </details>
 
 <details>

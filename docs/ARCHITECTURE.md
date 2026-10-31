@@ -48,3 +48,21 @@
 ```
 
 A future provider adapter must expose: `probe()` (no execution), `prepare()` (explicit scoped approval), `inspect()` (read-only), `trace()` (proof-linked), `close()` (cleanup), `capabilities()` (actual supported types) and a version-locked evidence contract. It must report unsupported operations rather than silently falling back.
+
+## v0.2 incremental extension
+
+```text
+CLI / stdio MCP
+       |
+       +-- investigate() -------- inspect/hash --> deep PE/ELF/WASM --> signals --> inspect/hash
+       |                                                        |
+       +-- diff() ------------------------------------ structural comparisons
+       |
+       +-- case index/search ---> SQLite snapshot index (local metadata only)
+       |
+       +-- case bundle/verify --> metadata ZIP (no artifact bytes)
+       |
+       +-- existing v0.1 interfaces unchanged
+```
+
+Hard limits: deep parsing first 32 MiB; 256 sections/headers; 128 names; 4096 symbol/entry probes; all-in-one analysis accepts at most 64 MiB. Read-only MCP methods never create indexes; index writes and ZIP export require explicit CLI commands. SQLite is derived state and disposable. The SHA-256 event ledger remains the canonical local record; neither mechanism is a qualified independent signature.
