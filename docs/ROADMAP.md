@@ -14,12 +14,12 @@
 - [x] 8-tool stdio MCP server and read-only loopback dashboard.
 - [x] Basic unit/integration suite, GitHub Actions test matrix definition.
 
-## Next release — v0.2 (not implemented)
+## Deferred work from the original v0.2 proposal
 
 - [ ] Upstream `morluto/rea` provider adapter with *actual* schema discovery and version-pinned MCP compatibility tests.
 - [ ] Semantically rich artifact inventory: PE import/relocation tables, ELF symbol/xref index, Mach-O load commands, DEX manifest and Java method indexes.
 - [ ] Configured sandbox runners (locked-down Windows VM, Linux user namespace, Android emulator); no automatic dynamic launch.
-- [ ] Durable indexed case search, exportable report bundles and baseline diff.
+- [x] Durable indexed case search, exportable report bundles and baseline diff (delivered in v0.2).
 - [ ] Cryptographic event-chain signing with external timestamp and key rotation.
 - [ ] Malformed binary and archive fuzzing, memory/CPU quotas, threat-model conformance tests.
 
@@ -50,3 +50,7 @@
 - [ ] Run coverage-guided parser fuzzing (AFL++/libFuzzer via wrapper) and establish memory/CPU budgets.
 - [ ] Optional signed, externally timestamped evidence receipts with documented key custody and rotation.
 - [ ] Portable dashboard for casebook browsing with explicit opt-in, authentication and local threat model.
+
+## Current execution plan
+
+The next vertical slices and their executable acceptance gates are tracked in [STABILIZATION.md](STABILIZATION.md#executable-next-milestones). Historical delivered counts above describe their release, not the current total.

@@ -5,6 +5,9 @@ Running this script does not download, install, or execute any third-party tool.
 """
 from pathlib import Path
 import json
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from rei_rea.registry import STATIC_ADAPTERS
 
 # id | name | category | executable alternatives | tags | official website
 ROWS = r'''
@@ -134,7 +137,7 @@ python|Python|data|python3,python|all,scripting|https://www.python.org/
 git|Git|data|git|all,source|https://git-scm.com/
 '''.strip()
 
-ADAPTERS = {"file", "readelf", "objdump", "llvm-objdump", "llvm-readobj", "nm", "exiftool", "otool", "android-aapt2"}
+ADAPTERS = set(STATIC_ADAPTERS)
 expected = {"all", "native", "firmware", "android", "apple", "dotnet", "wasm", "electron", "javascript", "web", "network", "java", "runtime", "symbolic", "evidence", "source", "static", "data", "security", "scripting", "malware", "decompile", "disassemble", "assemble", "debug", "memory", "forensics", "windows", "linux", "emulation", "filesystem", "formats", "hardware", "uefi", "build", "metadata", "protocol", "agent", "workflow"}
 items=[]
 for i, line in enumerate(ROWS.splitlines(),1):

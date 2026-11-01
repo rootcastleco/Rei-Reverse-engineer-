@@ -6,7 +6,7 @@ The GitHub About panel is **repository metadata**, not a field inferred from `RE
 
 **Using the GitHub UI (no token needed):**
 
-1. Open `https://github.com/rootcastleco/Rei-Reverse-engineer-` as a repository administrator.
+1. Open `https://github.com/rootcastleco/Rei-Reverse-engineer` as a repository administrator.
 2. Click the gear icon beside **About** on the main repository page.
 3. Paste the `description`, `homepage`, and all `topics` from `.github/repository-metadata.json`.
 4. Save. Refresh and confirm the Topics chips are visible and link to corresponding GitHub topic pages.

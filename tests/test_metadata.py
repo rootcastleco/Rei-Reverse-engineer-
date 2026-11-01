@@ -11,7 +11,7 @@ from scripts.sync_github_metadata import DEFAULT_METADATA, load_metadata, sync
 class MetadataTests(unittest.TestCase):
     def test_metadata_has_valid_repository_description_and_topics(self):
         doc = load_metadata(DEFAULT_METADATA)
-        self.assertEqual(doc['repository'], 'rootcastleco/Rei-Reverse-engineer-')
+        self.assertEqual(doc['repository'], 'rootcastleco/Rei-Reverse-engineer')
         self.assertGreaterEqual(len(doc['topics']), 10)
         self.assertIn('reverse-engineering', doc['topics'])
         self.assertIn('mcp-server', doc['topics'])
