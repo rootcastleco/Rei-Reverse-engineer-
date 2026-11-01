@@ -14,6 +14,9 @@ def _windows_names() -> set[str] | None:
     precedence and whether the current directory is permitted on this Python.
     No results survive a discovery request.
     """
+    if "PATH" not in os.environ:
+        # which() uses the platform default search path when PATH is absent.
+        return None
     names: set[str] = set()
     directories = dict.fromkeys([os.curdir, *os.environ.get("PATH", "").split(os.pathsep)])
     for directory in directories:

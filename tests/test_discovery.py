@@ -9,6 +9,13 @@ from rei_rea.registry import STATIC_ADAPTERS, load_catalog, tool_doctor
 
 
 class DiscoveryTests(unittest.TestCase):
+    def test_unset_path_retains_standard_library_default_search(self):
+        with patch.dict(os.environ, {}, clear=True):
+            self.assertIsNone(_windows_names())
+            with patch('rei_rea.discovery.sys.platform', 'win32'), patch('rei_rea.discovery.shutil.which', return_value='/default/tool') as which:
+                self.assertEqual(resolve_executables(['tool']), {'tool': '/default/tool'})
+                which.assert_called_once_with('tool')
+
     def test_permission_denied_inventory_falls_back_to_resolver(self):
         with patch('rei_rea.discovery.os.scandir', side_effect=PermissionError):
             self.assertIsNone(_windows_names())

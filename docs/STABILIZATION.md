@@ -92,9 +92,11 @@ features. The existing daily upstream review workflow stays independent.
 
 ## Local verification results
 
-- Full suite: 59 tests in 79.342 seconds, 58 passed and one skipped (`file` absent), no failures. No overall-suite speedup is claimed.
-- New discovery module: coverage.py 7.11.0 reports 100% statement/branch coverage (29 statements, 10 branches); seven focused tests. This is not whole-project coverage.
+- Full suite after review correction: 60 tests in 33.735 seconds, 59 passed and one skipped (`file` absent), no failures. No overall-suite speedup is claimed.
+- New discovery module: coverage.py 7.11.0 reports 100% statement/branch coverage (31 statements, 12 branches); eight focused tests. This is not whole-project coverage.
 - All 12 skills passed the installed skill validator.
 - Python wheel built locally; publication and platform-specific executables remain separate gates.
 - The original CLI timeout regression passes on the existing PATH without changing its 10-second deadline.
 - External-engine E2E, peak memory and parser performance benchmarks were not measured in this milestone.
+
+Review correction: an unset PATH now bypasses the directory prefilter so `shutil.which` retains its platform-default lookup. A regression distinguishes this from an explicitly empty PATH. The wheel was rebuilt after this correction.
