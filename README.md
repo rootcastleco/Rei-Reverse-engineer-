@@ -4,7 +4,7 @@
 
 ### Evidence-first reverse engineering. One workbench. Verifiable findings.
 
-[![CI](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml/badge.svg)](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml)
+[![CI](https://github.com/rootcastleco/Rei-Reverse-engineer/actions/workflows/ci.yml/badge.svg)](https://github.com/rootcastleco/Rei-Reverse-engineer/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-0E3D8A?logo=python&logoColor=white)](https://www.python.org/)
 [![MCP server](https://img.shields.io/badge/MCP-13%20tools-228B55)](#connect-an-ai-coding-agent)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0E3D8A)](LICENSE)
@@ -49,7 +49,7 @@ Even a supported operation is **not end-to-end verified** until its output is ch
 **Requirements:** Python 3.10 or later, Git, and a local file that you own or are permitted to inspect. The core has no third-party Python runtime dependencies.
 
 ```bash
-git clone https://github.com/rootcastleco/Rei-Reverse-engineer-.git
+git clone https://github.com/rootcastleco/Rei-Reverse-engineer.git
 cd Rei-Reverse-engineer-
 python -m pip install -e .
 
@@ -326,3 +326,8 @@ The local hash chain and artifact identity have been checked. It does **not** au
 ## External analysis providers (v0.3 preview)
 
 Twelve additional provider profiles are available through `rei-rea providers list`, with opt-in read-only inspection for radare2/rabin2, Rizin/rz-bin and LLVM readobj. The remaining providers are *discovery-only*. No third-party tools are automatically installed or executed, and the MCP server offers inventory without external execution. See [reviewed provider contracts](docs/PROVIDERS.md).
+
+
+## Electronics, PCB and firmware intake
+
+Run `rei-rea electronics <path>` for bounded format evidence and candidate tool routing across **more than 70 extension mappings** spanning PCB CAD, Gerber, Excellon drill, firmware, VCD/logic capture, FPGA/HDL, SPICE and mechanical CAD. Verified headers are explicitly distinguished from extension-only guesses. No automatic firmware extraction, verified netlist reconstruction or target execution. [Full capability matrix](docs/ELECTRONICS.md).
