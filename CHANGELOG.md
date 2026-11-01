@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — stabilization
+
+- Unify catalog adapter flags with code-owned commands; expose exact adapter availability.
+- Batch Windows discovery with a permission-aware, bounded parallel fallback.
+- Repair canonical repository identity, current capability documentation and About metadata.
+- Add discovery regression tests and a catalog regeneration CI gate.
+
+
 ## 0.1.0 — 2026-10-31
 
 - Introduce independent Rootcastle REI REA CLI, bounded static inspector, central catalog of 124 external tools, 9 opt-in static parser adapters, case hash chain, signals and comparisons.

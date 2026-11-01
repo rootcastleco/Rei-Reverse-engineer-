@@ -1,4 +1,4 @@
-# REI REA v0.1 specification and verification map
+# REI REA specification and verification map
 
 ## User stories
 
@@ -9,8 +9,8 @@
 - **REA-005** Analyst can launch only predefined static parsers with explicit CLI authorization and timeout. Tests: `test_registry`, `test_cli`.
 - **REA-006** Agent can use one stdio MCP interface to the same core capabilities. Test: end-to-end subprocess handshake in `test_mcp`.
 - **REA-007** Analyst can compare known file revisions and inspect bounded entropy/signatures with strings suppressed by default. Test: `test_signals`.
-- **REA-008** Analyst can browse catalog over local HTTP with no write/execution endpoints. Test: web handler definition and planned localhost E2E.
-- **REA-009** Ten standalone specialist skill entrypoints have valid frontmatter and task-specific acceptance. Test: external `quick_validate.py` for each and packaged root skill.
+- **REA-008** Analyst can browse catalog over local HTTP with no write/execution endpoints. Test: `test_web` live loopback E2E.
+- **REA-009** Twelve standalone specialist skill entrypoints have valid frontmatter and task-specific acceptance. Test: external `quick_validate.py` for each and packaged root skill.
 
 ## Explicit exclusions
 
@@ -23,7 +23,7 @@
 - New `run` accepts only a fixed code-reviewed adapter ID and explicit opt-in.
 - Every response reports bounded inspection and evidentiary limitations.
 - The case hash chain detects a one-field modification and optional target rehash detects changes.
-- Ten validated skill folders and at least one valid single-skill ZIP.
+- Twelve validated skill folders and at least one valid single-skill ZIP.
 - No claim of CI success until the remote GitHub Actions matrix executes.
 
 ## Rollback
@@ -41,4 +41,8 @@ Features are additive in a new repository. To disable tool launching, never call
 
 ### v0.2 acceptance
 
-44 existing/new local tests pass. Python 3.10 and 3.13 tests must pass on Linux, macOS and Windows before merging. Twelve skill folders validate. No migration of case manifests required. No database index is created by a read-only command.
+All current regression tests must pass; see `STABILIZATION.md` for measured results. Python 3.10 and 3.13 tests must pass on Linux, macOS and Windows before merging. Twelve skill folders validate. No migration of case manifests required. No database index is created by a read-only command.
+
+## Current stabilization contract
+
+The provider inventory adds `rei_rea_providers` (14 MCP tools). `case_create` writes local metadata; the remaining tools are read-only. Discovery and adapter-availability contracts are specified in [STABILIZATION.md](STABILIZATION.md).

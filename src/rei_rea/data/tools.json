@@ -98,7 +98,7 @@
         "firmware"
       ],
       "homepage": "https://rizin.re/",
-      "integration": "discovery-only",
+      "integration": "static-adapter",
       "requires_authorization": true,
       "bundled": false
     },
@@ -115,7 +115,7 @@
         "firmware"
       ],
       "homepage": "https://rada.re/",
-      "integration": "discovery-only",
+      "integration": "static-adapter",
       "requires_authorization": true,
       "bundled": false
     },

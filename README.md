@@ -4,9 +4,9 @@
 
 ### Evidence-first reverse engineering. One workbench. Verifiable findings.
 
-[![CI](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml/badge.svg)](https://github.com/rootcastleco/Rei-Reverse-engineer-/actions/workflows/ci.yml)
+[![CI](https://github.com/rootcastleco/Rei-Reverse-engineer/actions/workflows/ci.yml/badge.svg)](https://github.com/rootcastleco/Rei-Reverse-engineer/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-0E3D8A?logo=python&logoColor=white)](https://www.python.org/)
-[![MCP server](https://img.shields.io/badge/MCP-13%20tools-228B55)](#connect-an-ai-coding-agent)
+[![MCP server](https://img.shields.io/badge/MCP-14%20tools-228B55)](#connect-an-ai-coding-agent)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0E3D8A)](LICENSE)
 [![Status: Alpha](https://img.shields.io/badge/status-v0.2.0%20alpha-555555)](CHANGELOG.md)
 
@@ -17,7 +17,7 @@ It brings together a **124-entry reverse-engineering tool catalog**, **read-only
 The objective is not to produce confident-looking pseudocode. It is to make each conclusion **traceable, testable, and reproducible**.
 
 > [!IMPORTANT]
-> **Alpha scope, stated precisely.** REI REA is an original Rootcastle implementation, not an official fork or feature-parity replacement of [morluto/rea](https://github.com/morluto/rea). A catalog entry does **not** mean a tool is installed, integrated, or validated. Nine fixed static CLI adapters are implemented. External decompilers, debuggers, mobile instrumentation systems, and the upstream REA server are **not included**. See [Capabilities and limitations](#capabilities-and-limitations).
+> **Alpha scope, stated precisely.** REI REA is an original Rootcastle implementation, not an official fork or feature-parity replacement of [morluto/rea](https://github.com/morluto/rea). A catalog entry does **not** mean a tool is installed, integrated, or validated. Eleven fixed static CLI adapters are implemented. External decompilers, debuggers, mobile instrumentation systems, and the upstream REA server are **not included**. See [Capabilities and limitations](#capabilities-and-limitations).
 
 **[Quick start](#quick-start)** · **[Capabilities](#capabilities-and-limitations)** · **[Architecture](#architecture)** · **[MCP integration](#connect-an-ai-coding-agent)** · **[Agent skills](#twelve-specialist-agent-skills)** · **[Security](#safety-and-trust-boundaries)** · **[Roadmap](docs/ROADMAP.md)**
 
@@ -32,8 +32,8 @@ A reverse-engineering session usually involves multiple disconnected tools. Find
 | Which tool should I use? | Query one registry by artifact type and capability. | 124 catalog entries with tags, homepages, and PATH checks. |
 | What exactly did I inspect? | Identify the target before discussing behavior. | SHA-256 hashes, bounded format inspection, and archive metadata. |
 | Can I reproduce this finding? | Keep observations linked to one artifact identity. | Local hash-linked case events and integrity verification. |
-| Can an AI agent use the same evidence? | Expose structured operations over a single interface. | JSON CLI plus thirteen local stdio MCP tools. |
-| Can I add more analysis engines? | Use isolated provider contracts instead of rewriting the core. | Nine opt-in static adapters; advanced providers are planned. |
+| Can an AI agent use the same evidence? | Expose structured operations over a single interface. | JSON CLI plus fourteen local stdio MCP tools. |
+| Can I add more analysis engines? | Use isolated provider contracts instead of rewriting the core. | Eleven opt-in static adapters; advanced providers are planned. |
 | Is a model's explanation proof? | Distinguish what was seen from what was inferred. | `observed`, `inferred`, and `unknown` evidence states. |
 
 **Three distinct facts must never be conflated:**
@@ -49,8 +49,8 @@ Even a supported operation is **not end-to-end verified** until its output is ch
 **Requirements:** Python 3.10 or later, Git, and a local file that you own or are permitted to inspect. The core has no third-party Python runtime dependencies.
 
 ```bash
-git clone https://github.com/rootcastleco/Rei-Reverse-engineer-.git
-cd Rei-Reverse-engineer-
+git clone https://github.com/rootcastleco/Rei-Reverse-engineer.git
+cd Rei-Reverse-engineer
 python -m pip install -e .
 
 rei-rea --version
@@ -122,15 +122,15 @@ A new **SQLite casebook** explicitly indexes local case metadata for search by n
 | Bounded signals | **Implemented** | Entropy/signature probes and optional strings; scanning is capped. |
 | Version comparison | **Implemented** | File hashes and bounded byte differences. |
 | Local evidence cases | **Implemented** | SHA-256 identity, append-only hash-linked event records, verification, and Markdown reports. |
-| CLI and agent transport | **Implemented** | JSON CLI and thirteen stdio MCP tools. |
+| CLI and agent transport | **Implemented** | JSON CLI and fourteen stdio MCP tools. |
 | Dashboard | **Implemented** | Loopback-only catalog view; no target execution. |
-| External static adapters | **Opt-in** | Nine fixed commands; only executable tools present on the machine can run. |
+| External static adapters | **Opt-in** | Eleven fixed commands; only executable tools present on the machine can run. |
 | Ghidra / IDA / Rizin session control | **Planned** | Names may be cataloged; no live session provider is included. |
 | JADX / Frida / emulator automation | **Planned** | Skills document procedures, not active runtime integration. |
 | Upstream REA MCP compatibility | **Planned** | No API-parity claim or bundled upstream server. |
 | Firmware flashing or live network testing | **Not supported** | Excluded from this alpha gateway. |
 
-The fixed external adapters are `file`, `readelf`, `objdump`, `llvm-objdump`, `llvm-readobj`, `nm`, `exiftool`, `otool`, and `aapt2` (catalog ID `android-aapt2`). Each requires explicit opt-in and runs without a shell or user-supplied arbitrary flags.
+The fixed external adapters are `file`, `readelf`, `objdump`, `llvm-objdump`, `llvm-readobj`, `nm`, `exiftool`, `otool`, `aapt2` (catalog ID `android-aapt2`), `rabin2` and `rz-bin`. Each requires explicit opt-in and runs without a shell or user-supplied arbitrary flags.
 
 ```bash
 # Only if readelf is separately installed and the file is authorized:
@@ -144,7 +144,7 @@ A failed or missing external parser does not disable the built-in inspection pat
 ```mermaid
 flowchart TD
     U["Analyst / coding agent"] --> CLI["JSON CLI"]
-    U --> MCP["Local stdio MCP · 8 tools"]
+    U --> MCP["Local stdio MCP · 14 tools"]
     U --> UI["Loopback dashboard"]
     CLI --> Core["REI REA control plane"]
     MCP --> Core
@@ -153,7 +153,7 @@ flowchart TD
     Core --> Inspector["Static artifact inspector"]
     Core --> Planner["Format-aware investigation planner"]
     Core --> Evidence["SHA-256 evidence cases"]
-    Core --> Adapter["Nine fixed static adapters · explicit opt-in"]
+    Core --> Adapter["Eleven fixed static adapters · explicit opt-in"]
     Adapter -. "PATH-installed executable" .-> Local["External analysis tool"]
     Future["Future provider API: REA / Ghidra / JADX / Frida"] -. "not implemented" .-> Core
 ```
@@ -199,10 +199,11 @@ For MCP clients that use the `mcpServers` JSON format, a typical entry is:
 
 The `rei-rea` executable must be available in the environment used by your MCP client. Some clients require a full executable path and a restart after configuration.
 
-**Thirteen exposed MCP tools:**
+**Fourteen exposed MCP tools:**
 
 | Tool | Purpose |
 | --- | --- |
+| `rei_rea_providers` | Discover provider profiles without execution. |
 | `rei_rea_tools` | Filter catalog entries. |
 | `rei_rea_doctor` | Inspect local PATH availability. |
 | `rei_rea_inspect` | Identify and hash an artifact. |
@@ -217,7 +218,7 @@ The `rei-rea` executable must be available in the environment used by your MCP c
 | `rei_rea_case_search` | Search an existing local casebook index. |
 | `rei_rea_bundle_verify` | Check checksums of an exported evidence bundle. |
 
-MCP registration gives access to **these thirteen operations only**. It does not install third-party engines, grant new filesystem permissions, or create a remote analysis service. Client-specific permission settings still apply.
+MCP registration gives access to **these fourteen operations only**. It does not install third-party engines, grant new filesystem permissions, or create a remote analysis service. Client-specific permission settings still apply.
 
 ## Twelve specialist agent skills
 
@@ -268,7 +269,7 @@ python -m unittest discover -s tests -v
 python -m rei_rea --version
 ```
 
-The v0.2 local baseline passed **46/46 automated tests on 1 November 2026**. These cover artifact formats, archive warnings, opt-in boundaries, catalog consistency, evidence-chain tampering, CLI behavior, stdio MCP handshake, and loopback HTTP behavior. GitHub Actions defines a separate Linux, Windows, and macOS matrix for Python 3.10 and 3.13. **A local pass does not prove CI passed**; consult the live badge and Actions history.
+Verification is recorded per commit and environment in [the stabilization report](docs/STABILIZATION.md). GitHub Actions tests Python 3.10 and 3.13 on Linux, Windows and macOS. A local test pass does not establish remote CI or external-provider compatibility.
 
 Hardware behavior, mobile instrumentation, third-party engine accuracy, native decompilation parity, cloud deployment, and production performance are **not yet verified**.
 
@@ -289,7 +290,7 @@ Track the scope and acceptance gates in [docs/ROADMAP.md](docs/ROADMAP.md). For 
 <details>
 <summary><strong>Does REI REA contain 124 working analysis integrations?</strong></summary>
 
-No. It has 124 **catalog records**. Nine fixed static tool adapters are implemented, and each adapter needs its executable installed locally. The other records are discovery-only.
+No. It has 124 **catalog records**. Eleven fixed static tool adapters are implemented, and each adapter needs its executable installed locally. The other records are discovery-only.
 </details>
 
 <details>

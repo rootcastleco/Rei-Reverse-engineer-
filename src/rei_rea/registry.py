@@ -11,6 +11,7 @@ import signal
 import subprocess
 import tempfile
 import time
+from .discovery import resolve_executables
 
 
 # Fixed, read-only command templates. This mapping is code-owned, not registry-provided.
@@ -54,21 +55,25 @@ def load_catalog() -> list[dict]:
             raise RegistryError(f"Bad metadata for tool: {ident}")
         if tool.get("integration") not in ("static-adapter", "discovery-only"):
             raise RegistryError(f"Bad integration mode: {ident}")
-        if tool["integration"] == "static-adapter" and ident not in STATIC_ADAPTERS:
-            raise RegistryError(f"Tool lacks a code-owned adapter: {ident}")
+        if (tool["integration"] == "static-adapter") != (ident in STATIC_ADAPTERS):
+            raise RegistryError(f"Catalog/adapter disagreement: {ident}")
         seen.add(ident)
     return result
 
 
 def list_tools(*, tag: str | None = None, installed_only: bool = False) -> list[dict]:
     items = []
-    for item in load_catalog():
-        if tag and tag not in item["tags"] and tag != item["category"]:
-            continue
-        found = next((shutil.which(exe) for exe in item["executables"] if shutil.which(exe)), None)
+    catalog = [item for item in load_catalog()
+               if not tag or tag in item["tags"] or tag == item["category"]]
+    detected = resolve_executables(exe for item in catalog for exe in item["executables"])
+    for item in catalog:
+        found = next((detected[exe] for exe in item["executables"] if detected[exe]), None)
+        adapter_exe = STATIC_ADAPTERS.get(item["id"], (None,))[0]
+        adapter_path = detected.get(adapter_exe)
         if installed_only and not found:
             continue
-        items.append({**item, "installed": bool(found), "resolved_executable": found})
+        items.append({**item, "installed": bool(found), "resolved_executable": found,
+                      "adapter_available": bool(adapter_path), "adapter_executable": adapter_path})
     return items
 
 
@@ -77,7 +82,7 @@ def tool_doctor(*, tag: str | None = None) -> dict:
     return {
         "catalogued": len(items),
         "detected_on_path": sum(x["installed"] for x in items),
-        "static_adapters_available": sum(x["installed"] and x["integration"] == "static-adapter" for x in items),
+        "static_adapters_available": sum(x["adapter_available"] for x in items),
         "note": "PATH discovery only. Availability, entitlement, licensing and end-to-end functionality are NOT verified.",
         "tools": items,
     }

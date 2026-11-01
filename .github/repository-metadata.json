@@ -1,6 +1,6 @@
 {
-  "repository": "rootcastleco/Rei-Reverse-engineer-",
-  "description": "Evidence-first reverse engineering workbench: binary triage, 124-tool catalog, SHA-256 case ledger, local MCP server, CLI and 10 agent skills.",
+  "repository": "rootcastleco/Rei-Reverse-engineer",
+  "description": "Evidence-first reverse engineering workbench with bounded binary analysis, extensible static adapters, MCP and reproducible local investigations.",
   "homepage": "https://rootcastle.com",
   "topics": [
     "reverse-engineering",
@@ -11,15 +11,9 @@
     "mcp-server",
     "model-context-protocol",
     "security-research",
-    "software-analysis",
-    "firmware-analysis",
-    "android-reverse-engineering",
-    "electron",
-    "iot-security",
     "artifact-analysis",
     "python",
     "developer-tools",
-    "evidence-management",
-    "reverse-engineering-tools"
+    "evidence-management"
   ]
 }

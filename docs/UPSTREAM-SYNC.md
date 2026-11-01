@@ -22,8 +22,8 @@ Rootcastle REI REA is a **separate Python workbench**. Its upstream reference is
 ## Manual setup
 
 ```bash
-git clone https://github.com/rootcastleco/Rei-Reverse-engineer-.git
-cd Rei-Reverse-engineer-
+git clone https://github.com/rootcastleco/Rei-Reverse-engineer.git
+cd Rei-Reverse-engineer
 git submodule update --init upstream/rea
 git -C upstream/rea rev-parse HEAD
 ```

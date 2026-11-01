@@ -1,4 +1,4 @@
-# Architecture · v0.1.0
+# Architecture · current Python core
 
 ## Layers and trust boundaries
 
@@ -8,7 +8,7 @@
 - **Signals / comparisons**: entropy/signature probes, strings opt-in and byte differences, with a 16 MiB scan budget. Full-file SHA-256 remains independent of scan limits.
 - **Planner**: maps observed target format to one or more specialist skills, tool capability tags and a testable evidence-first workflow. No model-generated code execution.
 - **Evidence**: local `case.json` and `events.jsonl` with seq, timestamp, predecessor SHA-256 and record SHA-256. Atomic case manifest creation and exclusive writer lock guard against simple concurrency conflicts.
-- **Adapters**: fixed Python code map for nine static CLI commands with `shell=False`, no arbitrary flags, explicit `--allow-external`, process timeout and bounded capture. No dynamic methods, network probes or unrestricted `subprocess` API are exposed.
+- **Adapters**: fixed Python code map for eleven static CLI commands with `shell=False`, no arbitrary flags, explicit `--allow-external`, process timeout and bounded capture. No dynamic methods, network probes or unrestricted `subprocess` API are exposed.
 
 ## Data flow
 
@@ -25,7 +25,7 @@
 - SHA-256 identity: hex string, full file contents; directory identity is hash of `relative_path\0size\0file_hash` records, bounded with completeness flag.
 - Observation states: `observed`, `inferred`, `unknown`.
 - Tool execution: catalog entry alone never grants execution permission.
-- MCP output: JSON-RPC 2.0, stdio JSON lines, bounded inbound message size 1 MiB; eight structured tool contracts.
+- MCP output: JSON-RPC 2.0, stdio JSON lines, bounded inbound message size 1 MiB; fourteen structured tool contracts.
 - Session state: no persistent MCP process handles, no target imports, no background jobs.
 - Local web: GET only for `/`, `/api/tools`, `/api/health`. Loopback only, conservative CSP, no cookies or tokens.
 

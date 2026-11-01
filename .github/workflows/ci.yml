@@ -23,3 +23,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Validate built-in command
         run: python -m rei_rea --version
+      - name: Verify catalog regeneration
+        run: |
+          python scripts/generate_catalog.py
+          git diff --exit-code -- src/rei_rea/data/tools.json
