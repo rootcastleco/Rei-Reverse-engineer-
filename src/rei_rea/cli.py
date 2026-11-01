@@ -17,6 +17,7 @@ from .signals import scan_signals, compare_files
 from .deep import deep_inspect, structural_diff
 from .casebook import index_cases, search_cases, bundle_case, verify_bundle
 from .workflow import investigate
+from .providers import list_providers, inspect_provider
 
 
 def _json(value: object) -> None:
@@ -34,6 +35,14 @@ def parser() -> argparse.ArgumentParser:
         leaf.add_argument("--tag", help="Filter by capability tag or category")
         if cmd == "list":
             leaf.add_argument("--installed-only", action="store_true")
+    providers = sub.add_parser("providers", help="List or inspect via reviewed provider adapters")
+    ps = providers.add_subparsers(dest="provider_command", required=True)
+    ps.add_parser("list", help="Discover 12 providers without executing tools")
+    pi = ps.add_parser("inspect", help="Explicitly run one approved static provider")
+    pi.add_argument("provider_id")
+    pi.add_argument("target")
+    pi.add_argument("--allow-external", action="store_true")
+    pi.add_argument("--timeout", type=float, default=12)
     insp = sub.add_parser("inspect", help="Hash and identify an artifact without executing it")
     insp.add_argument("target")
     plan = sub.add_parser("plan", help="Generate a source/evidence-first investigation plan")
@@ -100,6 +109,13 @@ def main(argv: list[str] | None = None) -> int:
                 _json({"tools": list_tools(tag=a.tag, installed_only=a.installed_only)})
             else:
                 _json(tool_doctor(tag=a.tag))
+        elif a.command == "providers":
+            if a.provider_command == "list":
+                _json(list_providers())
+            else:
+                result = inspect_provider(a.provider_id, a.target, allow_external=a.allow_external, timeout=a.timeout)
+                _json(result)
+                return 0 if result["result"]["exit_code"] == 0 else 4
         elif a.command == "inspect":
             _json(inspect_path(a.target))
         elif a.command == "plan":

@@ -25,6 +25,8 @@ STATIC_ADAPTERS = {
     "exiftool": ("exiftool", "-j", "{target}"),
     "otool": ("otool", "-h", "{target}"),
     "android-aapt2": ("aapt2", "dump", "badging", "{target}"),
+    "radare2": ("rabin2", "-I", "{target}"),
+    "rizin": ("rz-bin", "-I", "{target}"),
 }
 
 

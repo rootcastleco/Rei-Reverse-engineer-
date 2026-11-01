@@ -321,3 +321,8 @@ The local hash chain and artifact identity have been checked. It does **not** au
 ---
 
 <p align="center"><sub>REI REA · Rootcastle Engineering & Innovation · Measure first. Reconstruct second. Verify always.</sub></p>
+
+
+## External analysis providers (v0.3 preview)
+
+Twelve additional provider profiles are available through `rei-rea providers list`, with opt-in read-only inspection for radare2/rabin2, Rizin/rz-bin and LLVM readobj. The remaining providers are *discovery-only*. No third-party tools are automatically installed or executed, and the MCP server offers inventory without external execution. See [reviewed provider contracts](docs/PROVIDERS.md).
