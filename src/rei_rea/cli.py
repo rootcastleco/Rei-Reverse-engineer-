@@ -18,6 +18,7 @@ from .deep import deep_inspect, structural_diff
 from .casebook import index_cases, search_cases, bundle_case, verify_bundle
 from .workflow import investigate
 from .providers import list_providers, inspect_provider
+from .electronics import inspect_electronics
 
 
 def _json(value: object) -> None:
@@ -43,6 +44,8 @@ def parser() -> argparse.ArgumentParser:
     pi.add_argument("target")
     pi.add_argument("--allow-external", action="store_true")
     pi.add_argument("--timeout", type=float, default=12)
+    ep = sub.add_parser("electronics", help="Bounded electronics/PCB/firmware file intake")
+    ep.add_argument("target")
     insp = sub.add_parser("inspect", help="Hash and identify an artifact without executing it")
     insp.add_argument("target")
     plan = sub.add_parser("plan", help="Generate a source/evidence-first investigation plan")
@@ -116,6 +119,8 @@ def main(argv: list[str] | None = None) -> int:
                 result = inspect_provider(a.provider_id, a.target, allow_external=a.allow_external, timeout=a.timeout)
                 _json(result)
                 return 0 if result["result"]["exit_code"] == 0 else 4
+        elif a.command == "electronics":
+            _json(inspect_electronics(a.target))
         elif a.command == "inspect":
             _json(inspect_path(a.target))
         elif a.command == "plan":

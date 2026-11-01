@@ -16,6 +16,7 @@ from .deep import deep_inspect, structural_diff
 from .casebook import search_cases, verify_bundle
 from .workflow import investigate
 from .providers import list_providers
+from .electronics import inspect_electronics
 
 PROTOCOL = "2025-03-26"
 MAX_INBOUND = 1024 * 1024
@@ -30,6 +31,7 @@ TOOLS = [
     _tool("tools", "List centrally catalogued RE tools; installed means executable on PATH, NOT integrated or licensed.",
           {"tag": {"type": "string"}, "installed_only": {"type": "boolean"}}),
     _tool("providers", "Read-only provider availability; does not execute external tools", {}),
+    _tool("electronics", "Read-only format routing for PCB, firmware, logic and electronics files; no external execution.", {"target":{"type":"string"}}, ["target"]),
     _tool("doctor", "Read-only PATH capability audit. Never launches external tools.", {"tag": {"type": "string"}}),
     _tool("inspect", "Read-only SHA-256, bounded magic and archive inventory. Does not execute target.",
           {"target": {"type": "string"}}, ["target"]),
@@ -73,6 +75,8 @@ def invoke_tool(name: str, a: dict) -> dict:
         expected = {"boolean": bool, "string": str, "integer": int}[expected_type]
         if not isinstance(value, expected) or (expected_type == "integer" and isinstance(value, bool)):
             raise ValueError(f"Wrong value type for argument: {key}")
+    if name == "rei_rea_electronics":
+        return inspect_electronics(a["target"])
     if name == "rei_rea_providers":
         return list_providers()
     if name == "rei_rea_tools":
